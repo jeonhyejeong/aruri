@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>아루리 (Aruri) — 결혼부터 육아까지</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #faf7f4;
+  --surface:   #ffffff;
+  --card:      #fff9f6;
+  --rose:      #d4607a;
+  --rose-lt:   #f9eaee;
+  --rose-mid:  #e8a0b0;
+  --peach:     #f2c4a8;
+  --sage:      #7a9e8a;
+  --sage-lt:   #e8f2ec;
+  --sand:      #c8a882;
+  --ink:       #2c2016;
+  --muted:     #9a8878;
+  --border:    #ede5dc;
+  --tab-h:     64px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ── 폰 프레임 ── */
+.phone {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 60px rgba(44,32,22,.12);
+}
+
+/* ── 상태바 ── */
+.status-bar {
+  height: 44px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.status-bar .time { font-size: 14px; font-weight: 700; }
+.status-icons { display: flex; gap: 6px; align-items: center; }
+
+/* ── 콘텐츠 스크롤 영역 ── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--tab-h) + 12px);
+  scroll-behavior: smooth;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ── 헤더 ── */
+.app-header {
+  padding: 12px 22px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+}
+.logo {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--rose);
+  letter-spacing: -0.5px;
+}
+.logo span { color: var(--ink); font-weight: 400; font-size: 13px; margin-left: 6px; vertical-align: middle; }
+.header-icons { display: flex; gap: 14px; }
+.icon-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 17px;
+  transition: all .18s;
+}
+.icon-btn:hover { background: var(--rose-lt); }
+.notif { position: relative; }
+.notif-dot {
+  position: absolute; top: 7px; right: 7px;
+  width: 7px; height: 7px;
+  background: var(--rose); border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+
+/* ── 웰컴 배너 ── */
+.welcome-banner {
+  margin: 0 16px 20px;
+  background: linear-gradient(135deg, var(--rose) 0%, #c0506a 100%);
+  border-radius: 20px;
+  padding: 22px 22px 0;
+  overflow: hidden;
+  position: relative;
+  min-height: 140px;
+  cursor: pointer;
+  animation: fadeUp .5s ease both;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.welcome-banner::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+}
+.welcome-banner::after {
+  content: '';
+  position: absolute; bottom: -20px; right: 30px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+}
+.wb-label { font-size: 11px; color: rgba(255,255,255,.7); letter-spacing: 1.5px; margin-bottom: 6px; }
+.wb-title { font-family: 'Nanum Myeongjo', serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+.wb-sub { font-size: 12px; color: rgba(255,255,255,.75); line-height: 1.5; margin-bottom: 18px; }
+.wb-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 12px; color: #fff;
+  margin-bottom: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background .18s;
+}
+.wb-btn:hover { background: rgba(255,255,255,.3); }
+
+/* ── 내 여정 단계 ── */
+.section { padding: 0 16px; margin-bottom: 24px; animation: fadeUp .5s ease .1s both; }
+.sec-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.sec-title { font-family: 'Nanum Myeongjo', serif; font-size: 17px; font-weight: 700; }
+.sec-more { font-size: 12px; color: var(--rose); cursor: pointer; }
+
+.journey-steps {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+}
+.journey-steps::-webkit-scrollbar { display: none; }
+
+.step-card {
+  flex-shrink: 0;
+  width: 88px;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+.step-card.active {
+  border-color: var(--rose);
+  background: var(--rose-lt);
+  box-shadow: 0 4px 16px rgba(212,96,122,.15);
+}
+.step-card:hover:not(.active) { border-color: var(--sand); transform: translateY(-2px); }
+.step-emoji { font-size: 24px; margin-bottom: 6px; }
+.step-name { font-size: 11px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+.step-card.active .step-name { color: var(--rose); }
+.step-dot {
+  position: absolute; top: 8px; right: 8px;
+  width: 7px; height: 7px;
+  background: var(--rose); border-radius: 50%;
+}
+
+/* ── 오늘의 할 일 ── */
+.todo-section { animation: fadeUp .5s ease .2s both; }
+.todo-list { display: flex; flex-direction: column; gap: 8px; }
+
+.todo-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.todo-item:hover { border-color: var(--rose-mid); transform: translateX(3px); }
+.todo-item.done { opacity: .55; }
+.todo-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; flex-shrink: 0;
+  transition: all .2s;
+}
+.todo-item.done .todo-check { background: var(--sage); border-color: var(--sage); color: #fff; }
+.todo-text { flex: 1; }
+.todo-text strong { font-size: 13px; font-weight: 500; display: block; margin-bottom: 2px; }
+.todo-text span { font-size: 11px; color: var(--muted); }
+.todo-tag {
+  font-size: 10px; padding: 2px 9px; border-radius: 20px;
+  background: var(--rose-lt); color: var(--rose);
+  font-weight: 500; flex-shrink: 0;
+}
+.todo-tag.green { background: var(--sage-lt); color: var(--sage); }
+
+/* ── 동네 피드 ── */
+.feed-section { animation: fadeUp .5s ease .3s both; }
+.feed-cards { display: flex; flex-direction: column; gap: 10px; }
+
+.feed-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.feed-card:hover { border-color: var(--rose-mid); box-shadow: 0 4px 16px rgba(212,96,122,.08); }
+.feed-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.feed-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.feed-meta { flex: 1; }
+.feed-meta strong { font-size: 13px; font-weight: 500; display: block; }
+.feed-meta span { font-size: 11px; color: var(--muted); }
+.feed-badge {
+  font-size: 10px; padding: 2px 9px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--muted);
+}
+.feed-content { font-size: 13px; line-height: 1.65; color: var(--ink); margin-bottom: 10px; }
+.feed-footer { display: flex; gap: 14px; }
+.feed-action { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.feed-action:hover { color: var(--rose); }
+
+/* ── 빠른 메뉴 ── */
+.quick-section { animation: fadeUp .5s ease .15s both; }
+.quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.quick-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 8px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+}
+.quick-item:hover { border-color: var(--rose); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,96,122,.12); }
+.quick-icon { font-size: 22px; margin-bottom: 6px; }
+.quick-name { font-size: 10px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+
+/* ── 하단 탭바 ── */
+.tab-bar {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 390px;
+  height: var(--tab-h);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  padding: 0 8px 8px;
+}
+.tab-item {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; cursor: pointer;
+  padding: 6px 0;
+  border-radius: 12px;
+  transition: all .18s;
+  position: relative;
+}
+.tab-item:hover { background: var(--rose-lt); }
+.tab-item.active { color: var(--rose); }
+.tab-icon { font-size: 22px; line-height: 1; }
+.tab-label { font-size: 9px; font-weight: 500; color: var(--muted); letter-spacing: .3px; }
+.tab-item.active .tab-label { color: var(--rose); }
+.tab-center {
+  flex: 0 0 64px;
+  display: flex; align-items: center; justify-content: center;
+}
+.tab-fab {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose) 0%, #c0506a 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: #fff;
+  box-shadow: 0 6px 20px rgba(212,96,122,.4);
+  cursor: pointer;
+  transition: transform .18s;
+  margin-bottom: 8px;
+}
+.tab-fab:hover { transform: scale(1.08); }
+
+/* ── 페이지 전환 ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── 체크리스트 페이지 ── */
+.page-header {
+  padding: 16px 22px 12px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.back-btn { font-size: 22px; cursor: pointer; color: var(--rose); }
+.page-title { font-family: 'Nanum Myeongjo', serif; font-size: 20px; font-weight: 700; }
+
+.checklist-group { margin-bottom: 20px; }
+.group-title {
+  font-size: 11px; font-weight: 500; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  padding: 0 16px; margin-bottom: 10px;
+}
+.check-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+  background: var(--surface);
+}
+.check-item:hover { background: var(--rose-lt); }
+.check-item:first-child { border-top: 1px solid var(--border); }
+.check-box {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; transition: all .2s; flex-shrink: 0;
+}
+.check-item.checked .check-box { background: var(--rose); border-color: var(--rose); color: #fff; }
+.check-item.checked .check-text { text-decoration: line-through; color: var(--muted); }
+.check-text { font-size: 14px; flex: 1; }
+.check-dday { font-size: 11px; color: var(--rose); font-weight: 500; }
+
+/* ── 성장기록 페이지 ── */
+.growth-header {
+  padding: 16px;
+  background: linear-gradient(135deg, #f9eaee, #fff9f6);
+  margin-bottom: 16px;
+  border-radius: 0 0 24px 24px;
+  text-align: center;
+}
+.baby-age { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.baby-name { font-family: 'Nanum Myeongjo', serif; font-size: 24px; font-weight: 700; color: var(--rose); margin-bottom: 12px; }
+.growth-stats { display: flex; justify-content: center; gap: 24px; }
+.stat-item { text-align: center; }
+.stat-val { font-size: 20px; font-weight: 700; font-family: 'Nanum Myeongjo', serif; color: var(--ink); }
+.stat-unit { font-size: 11px; color: var(--muted); }
+
+.memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
+.memory-card {
+  border-radius: 16px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  cursor: pointer;
+}
+.memory-thumb {
+  height: 110px; display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+}
+.memory-info { padding: 10px 12px; }
+.memory-title { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+.memory-date { font-size: 10px; color: var(--muted); }
+
+/* ── 커뮤니티 페이지 ── */
+.region-bar {
+  padding: 12px 16px;
+  display: flex; gap: 8px; overflow-x: auto;
+  background: var(--bg);
+}
+.region-bar::-webkit-scrollbar { display: none; }
+.region-tag {
+  flex-shrink: 0; font-size: 12px; font-weight: 500;
+  padding: 6px 14px; border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer; transition: all .15s;
+  color: var(--muted);
+}
+.region-tag.on { background: var(--rose); border-color: var(--rose); color: #fff; }
+
+/* ── 공구 페이지 ── */
+.gonggu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
+.gonggu-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; cursor: pointer;
+  transition: all .2s;
+}
+.gonggu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(44,32,22,.1); }
+.gonggu-thumb {
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  font-size: 44px;
+}
+.gonggu-body { padding: 12px; }
+.gonggu-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.gonggu-price { font-size: 14px; font-weight: 700; color: var(--rose); margin-bottom: 2px; }
+.gonggu-meta { font-size: 10px; color: var(--muted); }
+.gonggu-badge {
+  display: inline-block; font-size: 10px; padding: 1px 7px;
+  border-radius: 4px; background: var(--rose-lt); color: var(--rose);
+  margin-bottom: 6px;
+}
+
+/* ── 마이페이지 ── */
+.profile-card {
+  margin: 16px;
+  background: linear-gradient(135deg, var(--rose), #c0506a);
+  border-radius: 20px; padding: 22px;
+  display: flex; align-items: center; gap: 16px;
+  color: #fff;
+}
+.profile-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.profile-name { font-family: 'Nanum Myeongjo', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.profile-sub { font-size: 12px; color: rgba(255,255,255,.8); }
+
+.menu-list { margin: 0 16px; }
+.menu-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: color .15s;
+}
+.menu-item:hover { color: var(--rose); }
+.menu-item-icon { font-size: 20px; width: 28px; text-align: center; }
+.menu-item-text { flex: 1; font-size: 14px; }
+.menu-item-arrow { color: var(--muted); font-size: 14px; }
+
+/* ── 프로그레스 바 ── */
+.progress-section {
+  margin: 0 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  animation: fadeUp .5s ease .05s both;
+}
+.prog-top { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.prog-title { font-size: 13px; font-weight: 500; }
+.prog-pct { font-size: 13px; font-weight: 700; color: var(--rose); }
+.prog-bar { height: 8px; background: var(--rose-lt); border-radius: 10px; overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, var(--rose-mid), var(--rose)); border-radius: 10px; transition: width .8s ease; }
+.prog-sub { font-size: 11px; color: var(--muted); margin-top: 7px; }
+
+/* ── 탭 네비게이션 JS ── */
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- 상태바 -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <div class="status-icons">
+      <span>📶</span>
+      <span>🔋</span>
+    </div>
+  </div>
+
+  <!-- 스크롤 콘텐츠 -->
+  <div class="scroll-area" id="scrollArea">
+
+    <!-- ══ 홈 페이지 ══ -->
+    <div class="page active" id="page-home">
+
+      <!-- 헤더 -->
+      <div class="app-header">
+        <div>
+          <div class="logo">aruri<span>아루리</span></div>
+        </div>
+        <div class="header-icons">
+          <div class="icon-btn notif" onclick="alert('알림 3개')">
+            🔔
+            <div class="notif-dot"></div>
+          </div>
+          <div class="icon-btn" onclick="alert('검색')">🔍</div>
+        </div>
+      </div>
+
+      <!-- 웰컴 배너 -->
+      <div class="welcome-banner" onclick="showPage('page-checklist')">
+        <div class="wb-label">MY JOURNEY</div>
+        <div class="wb-title">결혼 D-87<br>준비가 잘 되고 있어요 🌸</div>
+        <div class="wb-sub">오늘 할 일 3개가 남아있어요</div>
+        <div class="wb-btn">체크리스트 보기 →</div>
+      </div>
+
+      <!-- 결혼 준비 진행률 -->
+      <div class="progress-section">
+        <div class="prog-top">
+          <span class="prog-title">💍 결혼 준비 진행률</span>
+          <span class="prog-pct">62%</span>
+        </div>
+        <div class="prog-bar">
+          <div class="prog-fill" style="width:62%"></div>
+        </div>
+        <div class="prog-sub">스드메 완료 · 예식장 완료 · 혼수 진행중</div>
+      </div>
+
+      <!-- 내 여정 단계 -->
+      <div class="section quick-section">
+        <div class="sec-head">
+          <span class="sec-title">내 여정</span>
+          <span class="sec-more">편집</span>
+        </div>
+        <div class="journey-steps">
+          <div class="step-card" onclick="showPage('page-checklist')">
+            <div class="step-emoji">💍</div>
+            <div class="step-name">결혼<br>준비</div>
+            <div class="step-dot"></div>
+          </div>
+          <div class="step-card active" onclick="showPage('page-checklist')">
+            <div class="step-emoji">🏠</div>
+            <div class="step-name">신혼집<br>꾸미기</div>
+          </div>
+          <div class="step-card" onclick="showPage('page-growth')">
+            <div class="step-emoji">🤰</div>
+            <div class="step-name">임신<br>준비</div>
+          </div>
+          <div class="step-card" onclick="showPage('page-growth')">
+            <div class="step-emoji">👶</div>
+            <div class="step-name">육아<br>기록</div>
+          </div>
+          <div class="step-card" onclick="showPage('page-community')">
+            <div class="step-emoji">🌿</div>
+            <div class="step-name">커뮤<br>니티</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 빠른 메뉴 -->
+      <div class="section quick-section">
+        <div class="sec-head">
+          <span class="sec-title">빠른 메뉴</span>
+        </div>
+        <div class="quick-grid">
+          <div class="quick-item" onclick="showPage('page-checklist')">
+            <div class="quick-icon">📋</div>
+            <div class="quick-name">결혼<br>체크리스트</div>
+          </div>
+          <div class="quick-item" onclick="showPage('page-growth')">
+            <div class="quick-icon">📸</div>
+            <div class="quick-name">성장<br>기록</div>
+          </div>
+          <div class="quick-item" onclick="showPage('page-gonggu')">
+            <div class="quick-icon">🛍️</div>
+            <div class="quick-name">공구<br>쇼핑</div>
+          </div>
+          <div class="quick-item" onclick="showPage('page-community')">
+            <div class="quick-icon">🏘️</div>
+            <div class="quick-name">동네<br>커뮤니티</div>
+          </div>
+          <div class="quick-item" onclick="alert('웨딩홀 정보')">
+            <div class="quick-icon">💒</div>
+            <div class="quick-name">웨딩홀<br>정보</div>
+          </div>
+          <div class="quick-item" onclick="alert('어린이집 후기')">
+            <div class="quick-icon">🏫</div>
+            <div class="quick-name">어린이집<br>후기</div>
+          </div>
+          <div class="quick-item" onclick="alert('구글시트 구매')">
+            <div class="quick-icon">📊</div>
+            <div class="quick-name">하객수<br>관리시트</div>
+          </div>
+          <div class="quick-item" onclick="alert('답례품 공구')">
+            <div class="quick-icon">🎁</div>
+            <div class="quick-name">답례품<br>공구</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 오늘의 할 일 -->
+      <div class="section todo-section">
+        <div class="sec-head">
+          <span class="sec-title">오늘 할 일</span>
+          <span class="sec-more">전체보기</span>
+        </div>
+        <div class="todo-list">
+          <div class="todo-item" onclick="toggleTodo(this)">
+            <div class="todo-check"></div>
+            <div class="todo-text">
+              <strong>드레스샵 잔금 납부</strong>
+              <span>오늘 마감 · 150만원</span>
+            </div>
+            <div class="todo-tag">결혼</div>
+          </div>
+          <div class="todo-item done" onclick="toggleTodo(this)">
+            <div class="todo-check">✓</div>
+            <div class="todo-text">
+              <strong>청첩장 문구 확정</strong>
+              <span>완료됨</span>
+            </div>
+            <div class="todo-tag">결혼</div>
+          </div>
+          <div class="todo-item" onclick="toggleTodo(this)">
+            <div class="todo-check"></div>
+            <div class="todo-text">
+              <strong>혼수 가전 배송일 조율</strong>
+              <span>이번 주 내</span>
+            </div>
+            <div class="todo-tag green">신혼집</div>
+          </div>
+          <div class="todo-item" onclick="toggleTodo(this)">
+            <div class="todo-check"></div>
+            <div class="todo-text">
+              <strong>답례품 공구 마감 확인</strong>
+              <span>D-2</span>
+            </div>
+            <div class="todo-tag">공구</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 동네 피드 -->
+      <div class="section feed-section">
+        <div class="sec-head">
+          <span class="sec-title">🏘️ 동네 이야기</span>
+          <span class="sec-more" onclick="showPage('page-community')">더보기</span>
+        </div>
+        <div class="feed-cards">
+          <div class="feed-card">
+            <div class="feed-top">
+              <div class="feed-avatar" style="background:#fde8ee">👩</div>
+              <div class="feed-meta">
+                <strong>은평구 맘</strong>
+                <span>은평구 · 2시간 전</span>
+              </div>
+              <div class="feed-badge">육아</div>
+            </div>
+            <div class="feed-content">연신내 근처 어린이집 추천 부탁드려요! 24개월 아들인데 영어유치원은 아직 이른 것 같고 일반 어린이집 중에 좋은 데 알고 계신 분 있나요? 🙏</div>
+            <div class="feed-footer">
+              <span class="feed-action">❤️ 14</span>
+              <span class="feed-action">💬 8</span>
+              <span class="feed-action">📤 공유</span>
+            </div>
+          </div>
+          <div class="feed-card">
+            <div class="feed-top">
+              <div class="feed-avatar" style="background:#e8f5ee">👰</div>
+              <div class="feed-meta">
+                <strong>예비신부 지은</strong>
+                <span>마포구 · 5시간 전</span>
+              </div>
+              <div class="feed-badge">결혼</div>
+            </div>
+            <div class="feed-content">홍대 근처 웨딩홀 후기 공유해요! 저는 ○○웨딩에서 했는데 식대도 합리적이고 서비스가 너무 좋았어요. 담당 플래너분이 정말 꼼꼼하게 챙겨주셔서 당일 아무 문제없이 잘 마쳤습니다 🥹</div>
+            <div class="feed-footer">
+              <span class="feed-action">❤️ 32</span>
+              <span class="feed-action">💬 15</span>
+              <span class="feed-action">📤 공유</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /홈 -->
+
+    <!-- ══ 체크리스트 페이지 ══ -->
+    <div class="page" id="page-checklist">
+      <div class="page-header">
+        <span class="back-btn" onclick="showPage('page-home')">←</span>
+        <span class="page-title">💍 결혼 준비 체크리스트</span>
+      </div>
+      <div style="padding:16px 0 0">
+        <div class="progress-section" style="margin:0 16px 20px">
+          <div class="prog-top">
+            <span class="prog-title">전체 진행률</span>
+            <span class="prog-pct" id="checkPct">42%</span>
+          </div>
+          <div class="prog-bar">
+            <div class="prog-fill" id="checkFill" style="width:42%"></div>
+          </div>
+          <div class="prog-sub" id="checkSub">완료 5 / 전체 12개 항목</div>
+        </div>
+
+        <div class="checklist-group">
+          <div class="group-title">📸 스드메</div>
+          <div class="check-item checked" onclick="toggleCheck(this)">
+            <div class="check-box">✓</div>
+            <span class="check-text">스튜디오 계약 완료</span>
+            <span class="check-dday">완료</span>
+          </div>
+          <div class="check-item checked" onclick="toggleCheck(this)">
+            <div class="check-box">✓</div>
+            <span class="check-text">드레스 선택 완료</span>
+            <span class="check-dday">완료</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">드레스 잔금 납부</span>
+            <span class="check-dday">D-0</span>
+          </div>
+          <div class="check-item checked" onclick="toggleCheck(this)">
+            <div class="check-box">✓</div>
+            <span class="check-text">메이크업 리허설</span>
+            <span class="check-dday">완료</span>
+          </div>
+        </div>
+
+        <div class="checklist-group">
+          <div class="group-title">💒 예식장</div>
+          <div class="check-item checked" onclick="toggleCheck(this)">
+            <div class="check-box">✓</div>
+            <span class="check-text">예식장 계약</span>
+            <span class="check-dday">완료</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">하객 수 최종 확인</span>
+            <span class="check-dday">D-14</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">식대 잔금 납부</span>
+            <span class="check-dday">D-7</span>
+          </div>
+        </div>
+
+        <div class="checklist-group">
+          <div class="group-title">🏠 혼수·신혼집</div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">가전 구매 완료</span>
+            <span class="check-dday">D-20</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">가구 배송 예약</span>
+            <span class="check-dday">D-21</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">신혼집 인테리어 완료</span>
+            <span class="check-dday">D-25</span>
+          </div>
+        </div>
+
+        <div class="checklist-group">
+          <div class="group-title">📨 청첩장·답례품</div>
+          <div class="check-item checked" onclick="toggleCheck(this)">
+            <div class="check-box">✓</div>
+            <span class="check-text">청첩장 발송 완료</span>
+            <span class="check-dday">완료</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-box"></div>
+            <span class="check-text">답례품 공구 주문</span>
+            <span class="check-dday">D-2</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /체크리스트 -->
+
+    <!-- ══ 성장기록 페이지 ══ -->
+    <div class="page" id="page-growth">
+      <div class="page-header">
+        <span class="back-btn" onclick="showPage('page-home')">←</span>
+        <span class="page-title">📸 성장 기록</span>
+      </div>
+      <div class="growth-header">
+        <div class="baby-age">생후 14개월</div>
+        <div class="baby-name">하준이 🌱</div>
+        <div class="growth-stats">
+          <div class="stat-item">
+            <div class="stat-val">81.2<span style="font-size:14px">cm</span></div>
+            <div class="stat-unit">키</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">10.4<span style="font-size:14px">kg</span></div>
+            <div class="stat-unit">몸무게</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">46<span style="font-size:14px">cm</span></div>
+            <div class="stat-unit">머리둘레</div>
+          </div>
+        </div>
+      </div>
+      <div class="memory-grid">
+        <div class="memory-card">
+          <div class="memory-thumb" style="background:#fde8ee">👶</div>
+          <div class="memory-info">
+            <div class="memory-title">첫 걸음마</div>
+            <div class="memory-date">2024.11.14</div>
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-thumb" style="background:#e8f2ec">🎂</div>
+          <div class="memory-info">
+            <div class="memory-title">돌잔치</div>
+            <div class="memory-date">2024.09.01</div>
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-thumb" style="background:#fff3e0">🍼</div>
+          <div class="memory-info">
+            <div class="memory-title">첫 이유식</div>
+            <div class="memory-date">2024.03.15</div>
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-thumb" style="background:#e8eef9">😴</div>
+          <div class="memory-info">
+            <div class="memory-title">신생아 시절</div>
+            <div class="memory-date">2023.09.01</div>
+          </div>
+        </div>
+        <div class="memory-card" style="border:2px dashed var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:155px;" onclick="alert('새 기록 추가')">
+          <div style="font-size:28px;margin-bottom:6px;">+</div>
+          <div style="font-size:12px;color:var(--muted);">기록 추가</div>
+        </div>
+      </div>
+    </div><!-- /성장기록 -->
+
+    <!-- ══ 커뮤니티 페이지 ══ -->
+    <div class="page" id="page-community">
+      <div class="page-header">
+        <span class="back-btn" onclick="showPage('page-home')">←</span>
+        <span class="page-title">🏘️ 동네 커뮤니티</span>
+      </div>
+      <div class="region-bar">
+        <div class="region-tag on">전체</div>
+        <div class="region-tag" onclick="selectRegion(this)">은평구</div>
+        <div class="region-tag" onclick="selectRegion(this)">마포구</div>
+        <div class="region-tag" onclick="selectRegion(this)">강남구</div>
+        <div class="region-tag" onclick="selectRegion(this)">송파구</div>
+        <div class="region-tag" onclick="selectRegion(this)">서초구</div>
+        <div class="region-tag" onclick="selectRegion(this)">노원구</div>
+      </div>
+      <div style="padding:12px 16px">
+        <div class="feed-cards">
+          <div class="feed-card"><div class="feed-top"><div class="feed-avatar" style="background:#fde8ee">👩</div><div class="feed-meta"><strong>은평구 맘</strong><span>은평구 · 2시간 전</span></div><div class="feed-badge">육아</div></div><div class="feed-content">연신내 어린이집 추천 부탁드려요! 24개월 아들입니다 🙏</div><div class="feed-footer"><span class="feed-action">❤️ 14</span><span class="feed-action">💬 8</span></div></div>
+          <div class="feed-card"><div class="feed-top"><div class="feed-avatar" style="background:#e8f5ee">👰</div><div class="feed-meta"><strong>예비신부 지은</strong><span>마포구 · 5시간 전</span></div><div class="feed-badge">결혼</div></div><div class="feed-content">홍대 웨딩홀 후기 공유해요! ○○웨딩 식대 합리적이고 서비스 최고였어요 🥹</div><div class="feed-footer"><span class="feed-action">❤️ 32</span><span class="feed-action">💬 15</span></div></div>
+          <div class="feed-card"><div class="feed-top"><div class="feed-avatar" style="background:#fff3e0">🤱</div><div class="feed-meta"><strong>임신 35주차</strong><span>강남구 · 어제</span></div><div class="feed-badge">임신</div></div><div class="feed-content">산후조리원 추천해주세요~ 강남·서초 쪽으로 알아보고 있어요. 가격보다 케어 퀄리티 위주로 봐주세요!</div><div class="feed-footer"><span class="feed-action">❤️ 22</span><span class="feed-action">💬 19</span></div></div>
+        </div>
+      </div>
+    </div><!-- /커뮤니티 -->
+
+    <!-- ══ 공구 페이지 ══ -->
+    <div class="page" id="page-gonggu">
+      <div class="page-header">
+        <span class="back-btn" onclick="showPage('page-home')">←</span>
+        <span class="page-title">🛍️ 공구 쇼핑</span>
+      </div>
+      <div style="padding:12px 0">
+        <div class="gonggu-grid">
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#fde8ee">🎁</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">D-2 마감</div>
+              <div class="gonggu-name">감성 답례품 세트</div>
+              <div class="gonggu-price">8,900원~</div>
+              <div class="gonggu-meta">124명 참여중</div>
+            </div>
+          </div>
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#e8f2ec">🧸</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">인기</div>
+              <div class="gonggu-name">국산 월령별 장난감 세트</div>
+              <div class="gonggu-price">32,000원~</div>
+              <div class="gonggu-meta">88명 참여중</div>
+            </div>
+          </div>
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#fff3e0">🥗</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">신규</div>
+              <div class="gonggu-name">유기농 이유식 4주 세트</div>
+              <div class="gonggu-price">68,000원~</div>
+              <div class="gonggu-meta">47명 참여중</div>
+            </div>
+          </div>
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#e8eef9">📊</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">디지털</div>
+              <div class="gonggu-name">하객수 관리 구글시트</div>
+              <div class="gonggu-price">5,900원</div>
+              <div class="gonggu-meta">즉시 다운로드</div>
+            </div>
+          </div>
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#fde8ee">💍</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">디지털</div>
+              <div class="gonggu-name">결혼준비 일정관리 시트</div>
+              <div class="gonggu-price">4,900원</div>
+              <div class="gonggu-meta">즉시 다운로드</div>
+            </div>
+          </div>
+          <div class="gonggu-card">
+            <div class="gonggu-thumb" style="background:#f3e8fd">🌸</div>
+            <div class="gonggu-body">
+              <div class="gonggu-badge">D-5 마감</div>
+              <div class="gonggu-name">신혼집 홈케어 박스</div>
+              <div class="gonggu-price">42,000원~</div>
+              <div class="gonggu-meta">63명 참여중</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /공구 -->
+
+    <!-- ══ 마이페이지 ══ -->
+    <div class="page" id="page-my">
+      <div class="page-header">
+        <span class="back-btn" onclick="showPage('page-home')">←</span>
+        <span class="page-title">마이 아루리</span>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar">👩</div>
+        <div>
+          <div class="profile-name">김지은 님</div>
+          <div class="profile-sub">결혼 D-87 · 은평구</div>
+        </div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="menu-list">
+        <div class="menu-item" onclick="showPage('page-checklist')">
+          <span class="menu-item-icon">💍</span>
+          <span class="menu-item-text">결혼 준비 체크리스트</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="showPage('page-growth')">
+          <span class="menu-item-icon">📸</span>
+          <span class="menu-item-text">성장 기록</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="alert('웨딩홀 찜 목록')">
+          <span class="menu-item-icon">💒</span>
+          <span class="menu-item-text">찜한 웨딩홀</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="alert('구매 내역')">
+          <span class="menu-item-icon">🛍️</span>
+          <span class="menu-item-text">구매 내역</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="alert('내가 쓴 글')">
+          <span class="menu-item-icon">✏️</span>
+          <span class="menu-item-text">내가 쓴 글</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="alert('알림 설정')">
+          <span class="menu-item-icon">🔔</span>
+          <span class="menu-item-text">알림 설정</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+        <div class="menu-item" onclick="alert('계정 설정')">
+          <span class="menu-item-icon">⚙️</span>
+          <span class="menu-item-text">설정</span>
+          <span class="menu-item-arrow">›</span>
+        </div>
+      </div>
+    </div><!-- /마이페이지 -->
+
+  </div><!-- /scroll-area -->
+
+  <!-- 하단 탭바 -->
+  <div class="tab-bar">
+    <div class="tab-item active" id="tab-home" onclick="showPage('page-home')">
+      <div class="tab-icon">🏠</div>
+      <div class="tab-label">홈</div>
+    </div>
+    <div class="tab-item" id="tab-checklist" onclick="showPage('page-checklist')">
+      <div class="tab-icon">📋</div>
+      <div class="tab-label">체크리스트</div>
+    </div>
+    <div class="tab-center">
+      <div class="tab-fab" onclick="showPage('page-gonggu')">🛍️</div>
+    </div>
+    <div class="tab-item" id="tab-community" onclick="showPage('page-community')">
+      <div class="tab-icon">🏘️</div>
+      <div class="tab-label">커뮤니티</div>
+    </div>
+    <div class="tab-item" id="tab-my" onclick="showPage('page-my')">
+      <div class="tab-icon">👤</div>
+      <div class="tab-label">마이</div>
+    </div>
+  </div>
+
+</div><!-- /phone -->
+
+<script>
+// 페이지 전환
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.getElementById('scrollArea').scrollTop = 0;
+
+  // 탭 활성화
+  const tabMap = {
+    'page-home': 'tab-home',
+    'page-checklist': 'tab-checklist',
+    'page-community': 'tab-community',
+    'page-my': 'tab-my',
+    'page-gonggu': null,
+    'page-growth': null,
+  };
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  if (tabMap[pageId]) {
+    document.getElementById(tabMap[pageId])?.classList.add('active');
+  }
+}
+
+// 투두 토글
+function toggleTodo(el) {
+  el.classList.toggle('done');
+  const check = el.querySelector('.todo-check');
+  check.textContent = el.classList.contains('done') ? '✓' : '';
+}
+
+// 체크리스트 토글 + 진행률 업데이트
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const box = el.querySelector('.check-box');
+  box.textContent = el.classList.contains('checked') ? '✓' : '';
+  updateProgress();
+}
+function updateProgress() {
+  const all = document.querySelectorAll('#page-checklist .check-item');
+  const done = document.querySelectorAll('#page-checklist .check-item.checked');
+  const pct = Math.round(done.length / all.length * 100);
+  document.getElementById('checkPct').textContent = pct + '%';
+  document.getElementById('checkFill').style.width = pct + '%';
+  document.getElementById('checkSub').textContent = `완료 ${done.length} / 전체 ${all.length}개 항목`;
+}
+
+// 지역 선택
+function selectRegion(el) {
+  document.querySelectorAll('.region-tag').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+</script>
+</body>
+</html>
